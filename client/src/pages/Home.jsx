@@ -9,11 +9,11 @@ import Footer from "../components/Footer";
 import LegalassistsWorksSection from "../components/LegalassistsWorksSection";
 import UserSaysSection from "../components/UserSaysSection";
 import ReadyToTransformSEction from "../components/ReadyToTransformSEction";
+import { Box } from "@mui/material";
 
 const Home = () => {
   return (
-    <Box className="min-h-screen bg-white">
-      <Header />
+    <Box className="min-h-screen">
       <main className="flex flex-col">
         <HeroSection />
         <FeaturesSection />
@@ -23,7 +23,6 @@ const Home = () => {
         <FAQSection />
         <ContactSection />
         <ReadyToTransformSEction />
-        <Footer />
       </main>
     </Box>
   );

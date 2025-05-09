@@ -2,16 +2,11 @@ import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import { IconButton, Tooltip } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
-import HeroSection from "./components/HeroSection";
-import FeaturesSection from "./components/FeaturesSection";
-import SecuritySection from "./components/SecuritySection";
-import FAQSection from "./components/FAQSection";
-import ContactSection from "./components/ContactSection";
-import LegalassistsWorksSection from "./components/LegalassistsWorksSection";
-import UserSaysSection from "./components/UserSaysSection";
-import ReadyToTransformSEction from "./components/ReadyToTransformSEction";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Chat from "./pages/Chat";
 
 const ThemeToggle = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -51,24 +46,29 @@ const ThemeToggle = () => {
   );
 };
 
+function AppContent() {
+  const location = useLocation();
+  const showFooter = location.pathname !== "/chat";
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+      {showFooter && <Footer />}
+      <ThemeToggle />
+    </div>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-        <Header />
-        <main>
-          <HeroSection />
-          <FeaturesSection />
-          <SecuritySection />
-          <LegalassistsWorksSection />
-          <UserSaysSection />
-          <FAQSection />
-          <ContactSection />
-          <ReadyToTransformSEction />
-          <Footer />
-        </main>
-        <ThemeToggle />
-      </div>
+      <Router>
+        <AppContent />
+      </Router>
     </ThemeProvider>
   );
 }
